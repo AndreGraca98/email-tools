@@ -6,6 +6,10 @@ Assuming user is in `email-tools/`
 
 ```bash
 python setup.py develop -U
+
+# OR
+
+pip install git+https://github.com/AndreGraca98/email-tools.git
 ```
 
 ## Usage
