@@ -44,8 +44,8 @@ def create_credentials_csv(email_list: List[str]=None, pwd_list: List[str]=None,
         force (bool, optional): Force new file creation. Defaults to False.
         path (Path, optional): Base directory. Defaults to Path.home()/"tools".
     """
+    generate_key()
     if MANUAL:
-        generate_key()
         email_list=[input('Enter sender email ["user@isr.uc.pt"]: ')]; pwd_list=[input('Enter sender pwd ["password"]: ')]
         
     base_dir = path if __name__ != '__main__' else Path('')
