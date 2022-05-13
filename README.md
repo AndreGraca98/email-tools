@@ -2,9 +2,9 @@
 
 ## Setup
 
-Assuming user is in `email-tools/`
-
 ```bash
+git clone https://github.com/AndreGraca98/email-tools.git
+# Assuming user is in `email-tools/`
 python setup.py develop -U
 
 # OR
@@ -15,6 +15,14 @@ pip install git+https://github.com/AndreGraca98/email-tools.git
 ## Usage
 
 ### Creating credentials for the first time
+
+Run on a bash terminal:
+
+```bash
+python -c "import email_tools as et; et.create_credentials_csv(force=True, MANUAL=True)"
+```
+
+Run on python terminal:
 
 ```python
 from email_tools import create_credentials_csv, generate_key
