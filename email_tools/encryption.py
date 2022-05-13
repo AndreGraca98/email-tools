@@ -35,7 +35,7 @@ def decrypt(encMessage: str, key: bytes):
     return decMessage
 
 
-def create_credentials_csv(email_list: List[str]=None, pwd_list: List[str]=None, force=False, path: Path = Path.home() / "credentials", MANUAL=False):
+def create_credentials_csv(email_list: List[str]=None, pwd_list: List[str]=None, force=False, path: Path = Path.home() / ".credentials", MANUAL=False):
     """ Creates encrypted file with emails and respective passwords
 
     Args:
@@ -70,7 +70,7 @@ def create_credentials_csv(email_list: List[str]=None, pwd_list: List[str]=None,
     df.to_csv(str(base_dir / "credentials.csv"), sep=" ")#, index_label="index")  # , index=None)
 
 
-def get_data(domain: str, column_name: str, path: Path = Path.home() / "credentials") -> str:
+def get_data(domain: str, column_name: str, path: Path = Path.home() / ".credentials") -> str:
     """ Retrieves decrypted data from emails/passwords dataframe
 
     Args:
@@ -108,7 +108,7 @@ def get_pwd(domain: str):
 def get_credentials(domain: str):
     return get_email(domain=domain), get_pwd(domain=domain)
 
-def get_all_credentials(path: Path = Path.home() / "credentials"):
+def get_all_credentials(path: Path = Path.home() / ".credentials"):
     base_dir = path if __name__ != '__main__' else Path('')
     
     df = pd.read_csv(str(base_dir / "credentials.csv"), sep=" ")
