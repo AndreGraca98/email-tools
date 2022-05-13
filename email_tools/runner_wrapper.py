@@ -2,13 +2,10 @@ import time
 import traceback as tb
 from datetime import datetime
 
-if __name__ == '__main__':
-    from email_class import Email
-else:
-    from email_tools.email_class import Email
+from .email_class import Email
+from .encryption import get_email
 
-
-def email_notification(func):
+def email_notification_wrapper(func):
     """ Wrapper function to send an email if an error occurs while running the main function. 
 
     Args:
@@ -31,15 +28,14 @@ def email_notification(func):
     return wrapper
 
 
-@email_notification
-def example_func(a, b=99):
-    for _ in range(1_000):
-        time.sleep(0.01)
-
-    print(a, b)
-
-
-if __name__ == "__main__":
-    # example_func(123, b=54)
-
-    pass
+@email_notification_wrapper
+def example_function():
+    email = get_email('isr')
+    
+    print(f'Press Ctrl+C to send an error message to {email}')
+    for t in range(10, 0, -1):
+        print(f'Time left: {t} seconds', end='\r')
+        time.sleep(1)
+        
+    raise RuntimeError(f'Ctrl+C not pressed. Sending Runtime Error message to {email}')
+        

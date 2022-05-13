@@ -35,14 +35,14 @@ def decrypt(encMessage: str, key: bytes):
     return decMessage
 
 
-def create_credentials_csv(email_list: List[str]=None, pwd_list: List[str]=None, force=False, path: Path = Path.cwd() / "credentials", MANUAL=False):
+def create_credentials_csv(email_list: List[str]=None, pwd_list: List[str]=None, force=False, path: Path = Path.home() / "credentials", MANUAL=False):
     """ Creates encrypted file with emails and respective passwords
 
     Args:
         email_list (List[str], optional): Email list. Defaults to None.
         pwd_list (List[str], optional): Password list. Defaults to None.
         force (bool, optional): Force new file creation. Defaults to False.
-        path (Path, optional): Base directory. Defaults to Path.cwd()/"tools".
+        path (Path, optional): Base directory. Defaults to Path.home()/"tools".
     """
     if MANUAL:
         generate_key()
@@ -70,13 +70,13 @@ def create_credentials_csv(email_list: List[str]=None, pwd_list: List[str]=None,
     df.to_csv(str(base_dir / "credentials.csv"), sep=" ")#, index_label="index")  # , index=None)
 
 
-def get_data(domain: str, column_name: str, path: Path = Path.cwd() / "credentials") -> str:
+def get_data(domain: str, column_name: str, path: Path = Path.home() / "credentials") -> str:
     """ Retrieves decrypted data from emails/passwords dataframe
 
     Args:
         domain (str): email domain. Can be split with : to access different values in the dataset 
         column_name (str): email or password
-        path (Path, optional): Base directory. Defaults to Path.cwd()/"tools".
+        path (Path, optional): Base directory. Defaults to Path.home()/"tools".
 
     Returns:
         str: decrypted data from specified column
@@ -108,7 +108,7 @@ def get_pwd(domain: str):
 def get_credentials(domain: str):
     return get_email(domain=domain), get_pwd(domain=domain)
 
-def get_all_credentials(path: Path = Path.cwd() / "credentials"):
+def get_all_credentials(path: Path = Path.home() / "credentials"):
     base_dir = path if __name__ != '__main__' else Path('')
     
     df = pd.read_csv(str(base_dir / "credentials.csv"), sep=" ")
@@ -117,18 +117,3 @@ def get_all_credentials(path: Path = Path.cwd() / "credentials"):
     passwords = [decrypt(eval(p), key=key) for p in df['password'].values.tolist()]
 
     return list(zip(emails, passwords)), df.domain.values.tolist()
-
-if __name__ == "__main__":
-    # generate_key()
-    
-    # print(get_credentials("isr"))
-    
-    # create_credentials_csv(["email@domain", 'another.email@domain.pt', 'testt@uc.pt'], ["password", '1234', 'pwd'], force=True)
-
-    # print(get_credentials("domain"))
-    # print(get_credentials("domain:1"))
-    # print(get_credentials("uc"))
-    
-    print(get_all_credentials())
-
-    pass

@@ -1,5 +1,5 @@
 import time
-from email_tools import Email, email_notification, generate_key, create_credentials_csv, get_all_credentials, get_credentials
+from email_tools import Email, email_notification_wrapper, generate_key, create_credentials_csv, get_all_credentials, get_credentials, example_function
 
 
 if __name__ == '__main__':
@@ -13,16 +13,8 @@ if __name__ == '__main__':
 
     Email(sender_email=email, sender_pwd=pwd).send(attachments=['email_tools/credentials.csv','email_tools/some_file.txt'])
     
-    @email_notification
-    def function():
-        print(f'Press Ctrl+C to send an error message to {email}')
-        for t in range(10, 0, -1):
-            print(f'Time left: {t} seconds', end='\r')
-            time.sleep(1)
-            
-        raise RuntimeError(f'Ctrl+C not pressed. Sending Runtime Error message to {email}')
-            
-    function()
+    
+    example_function()
     
     
     pass

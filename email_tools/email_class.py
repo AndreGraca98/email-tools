@@ -8,10 +8,7 @@ from email.mime.text import MIMEText
 from os.path import basename
 from typing import Tuple, Union
 
-if __name__ == '__main__':
-    from encryption import get_email, get_pwd
-else:
-    from email_tools.encryption import get_email, get_pwd
+from .encryption import get_email, get_pwd
 
 
 class Email:
