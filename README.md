@@ -1,8 +1,14 @@
 # email-tools
 
-## Usage
+## Setup
 
 Assuming user is in `email-tools/`
+
+```bash
+python setup.py develop -U
+```
+
+## Usage
 
 ### Creating credentials for the first time
 
